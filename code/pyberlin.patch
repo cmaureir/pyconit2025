@@ -1,0 +1,27 @@
+diff --git a/Python/bltinmodule.c b/Python/bltinmodule.c
+index fb9868b3740..252a53b0d9c 100644
+--- a/Python/bltinmodule.c
++++ b/Python/bltinmodule.c
+@@ -2199,7 +2199,21 @@ builtin_print_impl(PyObject *module, PyObject * const *args,
+                 return NULL;
+             }
+         }
+-        err = PyFile_WriteObject(args[i], file, Py_PRINT_RAW);
++        if (PyUnicode_Check(args[i])) {
++            PyObject* str = PyUnicode_AsUTF8String(args[i]);
++            const char *bytes = PyBytes_AsString(str);
++            if (!strcmp(bytes, "hello")) {
++                const char *_bye = "bye";
++                PyObject *_byeo = Py_BuildValue("s", _bye);
++                err = PyFile_WriteObject(_byeo, file, Py_PRINT_RAW);
++            }
++            else {
++                err = PyFile_WriteObject(args[i], file, Py_PRINT_RAW);
++            }
++        }
++        else {
++            err = PyFile_WriteObject(args[i], file, Py_PRINT_RAW);
++        }
+         if (err) {
+             return NULL;
+         }
