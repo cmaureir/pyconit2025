@@ -1,6 +1,6 @@
 :root {
-  --white: #FFFFFF;
-  --black: #000000;
+  --qt-white: #FFFFFF;
+  --qt-black: #000000;
   --qt-neon: #2CDE85;
   --qt-pine: #00414A;
   --qt-lemon: #DBEB00;
@@ -111,6 +111,11 @@
 
 .white {
   color: var(--qt-white);
+  font-style: normal;
+}
+
+.black {
+  color: var(--qt-black);
   font-style: normal;
 }
 
